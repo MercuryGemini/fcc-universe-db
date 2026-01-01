@@ -22,8 +22,8 @@ Foreign keys enforce referential integrity down the chain. You can't have a star
 
 ## Data
 
-- 6 galaxies (Milky Way, Andromeda, etc.)
-- 6 stars (Sun, Proxima Centauri, Sirius A, etc.)
+- 6 galaxies
+- 6 stars 
 - 12 planets (8 from our solar system + 4 fictional)
 - 20 moons (real ones from our solar system + a few fictional)
 - 3 spacecraft (Voyager 1, Apollo 11, Perseverance)
