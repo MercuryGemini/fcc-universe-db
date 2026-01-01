@@ -1,0 +1,59 @@
+Schema (generated)
+
+UNIVERSE DATABASE SCHEMA
+galaxy
+├── galaxy_id (PK, SERIAL)
+├── name (VARCHAR, NOT NULL, UNIQUE)
+├── star_count (INT, NOT NULL)
+├── age_in_millions_of_years (NUMERIC, NOT NULL)
+├── contains_our_solar_system (BOOLEAN)
+└── notes (TEXT)
+      │
+      │ 1:M
+      ▼
+star
+├── star_id (PK, SERIAL)
+├── name (VARCHAR, NOT NULL, UNIQUE)
+├── planet_count (INT, NOT NULL)
+├── age_in_millions_of_years (NUMERIC, NOT NULL)
+├── radius_in_km (NUMERIC, NOT NULL)
+├── galaxy_id (FK → galaxy.galaxy_id, INT, NOT NULL)
+└── notes (TEXT)
+      │
+      │ 1:M
+      ▼
+planet
+├── planet_id (PK, SERIAL)
+├── name (VARCHAR, NOT NULL, UNIQUE)
+├── has_life (BOOLEAN)
+├── age_in_millions_of_years (NUMERIC, NOT NULL)
+├── radius_in_km (NUMERIC, NOT NULL)
+├── is_in_our_solar_system (BOOLEAN)
+├── is_terrestrial (BOOLEAN, NOT NULL)
+├── star_id (FK → star.star_id, INT, NOT NULL)
+└── notes (TEXT)
+      │
+      ├──────────────────┐
+      │ 1:M             │ 1:M
+      ▼                 ▼
+moon                 spacecraft
+├── moon_id (PK)     ├── spacecraft_id (PK)
+├── name             ├── name
+├── age_in_mil...    ├── launch_date (DATE)
+├── radius_in_km     ├── is_manned (BOOLEAN)
+├── orbiting_type    ├── weight_in_kg (NUMERIC)
+├── planet_id (FK)   ├── mission_type (TEXT)
+└── notes            ├── notes
+                     └── planet_id (FK)
+
+RELATIONSHIPS:
+- galaxy 1:M star (a galaxy contains many stars)
+- star 1:M planet (a star has many planets)
+- planet 1:M moon (a planet has many moons)
+- planet 1:M spacecraft (spacecraft originate from planets)
+
+CONSTRAINTS USED:
+- PRIMARY KEY (auto-increment via SERIAL)
+- FOREIGN KEY (referential integrity)
+- NOT NULL (required fields)
+- UNIQUE (no duplicate names)
